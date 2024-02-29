@@ -28,3 +28,7 @@ Budget is an important consideration for these campaigns, which is unkown.
 I would also like to test different attribution models using historical data or A/B testing to evaluate their performance and accuracy. Eventually, comparing the results across models and choosing the one that best meets the objectives and providing actionable insights.
 
 I can also learn how to get better quality data with fewer missing data and more data across time. Typically, I would like to divide the data by season, geography, and other demograpics to gain deeper insights. 
+
+
+* [Full Noebook](https://github.com/agniji/DO_Campaigns/blob/main/AttribModel.ipynb)
+
