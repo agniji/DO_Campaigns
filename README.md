@@ -6,6 +6,8 @@ MMM Analysis
 Clean the data by removing user_id, session_id and utm_content which has 4,700 missing values out of 5,000 rows. Time spent per session is calculated using session_start_ts and session_end_ts. Several attribution models are available like, Last Interaction, First Interaction, Time Decay, Linear, or Position Based. However, a decision to choose a particular model need to be made by clarifying the details with the marketing teams. 
 Monitoring the performance of the marketing efforts regularly and updating the attribution model is needed. Consumer behavior and market dynamics may change over time, so it's essential to adapt the strategies accordingly.
 
+## Analysis
+
 We need to analyze the customer journey to understand how customers interact with the marketing touchpoints before converting. Also, consider whether the journey is straightforward or involves multiple touchpoints across different channels.
 
 Align the attribution model with the business goals. If the goal is to maximize immediate sales, a last-touch attribution model might be suitable. If the focus is on long-term brand awareness and engagement, a multi-touch attribution model might be more appropriate.
@@ -18,12 +20,23 @@ Depending on the availability and accuracy of data for each touchpoint, some att
 
 We need to balance the complexity of the attribution model with the ease of implementation and interpretation. While more sophisticated models may provide a more nuanced understanding of customer behavior, simpler models may be easier to implement and communicate. 
 
+## Model Considerations
+
 I chose the LightGBM Classifier due to the following reasons:
 Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any apriory knowledge or sampling corrections, like over- or undersampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy varieables for specifically those variables: channel_id & utm_campaign
 
+## Metrics
+
 I have chosen accuracy and Area Under the Curve (AUC) as two metrics. AUC is a much better choice here becausw we are dealing with a highly imbalanced dataset with too many negative cases. An f-score can also be used, depending on whether False Positives or False Negatives are more detrimental for the predictions.
 
-Budget is an important consideration for these campaigns, which is unkown. 
+## Conclusion
+
+The LightGBM Classifier does not provide good results so this need to be improved using more experiments with larger and higher quakity data and by discussing key results with the marketing team. The Feature Importances plot shows the created variable for Time Spent per session as the most important variable, followed by adwords_search, page, web_referral and others.
+
+The Regressor for LightGBM was used to predict the time spent per session, which is in turn a proxy for website engagement. In lieu of lack ok more granular data, like how much time is spent on specific activities in a particular page, I have decided to use time spent per session for measuring engagement. This particualr model is doing a good job of predicting the time spent with top features as page, adwords_search, utm_source followed by others. 
+
+## Future Work
+Budget is an important consideration for these campaigns, which is unkown. With more time in hand, other categorical variables can also be split into dummy variables to get a feature importance score attached to each category and necessary marketing steps can be taken accordingly. 
 
 I would also like to test different attribution models using historical data or A/B testing to evaluate their performance and accuracy. Eventually, comparing the results across models and choosing the one that best meets the objectives and providing actionable insights.
 
