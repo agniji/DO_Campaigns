@@ -28,19 +28,21 @@ The violin plots and histograms reveal a lot about the data and its underlying d
 I chose the LightGBM Classifier due to the following reasons:
 Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any a priory knowledge or sampling corrections, like over- or under-sampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. Missing values & outliers can also be handled internally. 
 
-However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy varieables for specifically those variables: channel_id & utm_campaign. I have also removed rows missing values on features that we need to inquire.
+However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy variables for specifically those variables: channel_id & utm_campaign. I have also removed rows with missing values on features that we need to inquire.
 
 ## Metrics
 
-I have chosen accuracy and Area Under the Curve (AUC) as two metrics. AUC is a much better choice here becausw we are dealing with a highly imbalanced dataset with too many negative cases. An f-score can also be used, depending on whether False Positives or False Negatives are more detrimental for the predictions.
+I have chosen accuracy and Area Under the Curve (AUC) as two metrics. AUC is a much better choice here because we are dealing with a highly imbalanced dataset with too many negative cases. An f-score can also be used, depending on whether False Positives or False Negatives are more detrimental for the predictions.
 
 ## Conclusion
 
-The LightGBM Classifier does not provide good results so this need to be improved using more experiments with larger and higher quality data and by discussing key results with the marketing team. The Feature Importances plot shows the created variable for Time Spent per session as the most important variable, followed by adwords_search, page, web_referral and others.
+The LightGBM Classifier provides average results according to the AUC score, so this needs to be improved using more experiments with larger and higher quality data and by discussing key results with the marketing team. The Feature Importances plot shows the created variable for Time Spent per session as the most important variable, followed by adwords_search, page, web_referral and others. It is clear from observing the different plots that the total number of cases available for analysis per category is low. For example, check out the Signups by Channel and campaign plots. There are only arund 35 positive cases for adwords-Search & web_referral. Similar situation for the campaigns. 
+Hence, we need more data per category with positive Sign_up for the analysis. 
 
 The Regressor for LightGBM was used to predict the time spent per session, which is in turn a proxy for website engagement. In lieu of lack of more granular data, like how much time is spent on specific activities in a particular page, I have decided to use time spent per session for measuring engagement. This particualr model is doing a good job of predicting the time spent with top features as page, adwords_search, utm_source followed by others. 
 
 Adwords_search turns up as the most important channel, followed by web_referral. 
+Search_NVDIA_A100_amer came up as the top campaign followed by Search_NVDIA_A100_emea.
 
 ## Future Work
 Budget is an important consideration for these campaigns, which is unkown. With more time in hand, other categorical variables can also be split into dummy variables to get a feature importance score attached to each category and necessary marketing steps can be taken accordingly. 
