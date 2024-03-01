@@ -38,6 +38,16 @@ The Regressor for LightGBM was used to predict the time spent per session, which
 ## Future Work
 Budget is an important consideration for these campaigns, which is unkown. With more time in hand, other categorical variables can also be split into dummy variables to get a feature importance score attached to each category and necessary marketing steps can be taken accordingly. 
 
+Investigate the outliers seen on the Violin plots for utm_term, medium, source & page by session time.
+
+Most session time outliers apply to failed signups - are there technical glitches or is there a reason for this?
+
+Data for content (blog posts, landing pages), website engagement metrics (page views, bounce rate) will enhance the attribution model. 
+
+Parse the referrer field to match with utm_source - analyze if it is different.
+
+Use HuggingFace Transformers to analyze utm_term further to decipher hidden intent of users.
+
 I would also like to test different attribution models using historical data or A/B testing to evaluate their performance and accuracy. Eventually, comparing the results across models and choosing the one that best meets the objectives and providing actionable insights.
 
 I can also learn how to get better quality data with fewer missing data and more data across time. Typically, I would like to divide the data by season, geography, and other demograpics to gain deeper insights. 
