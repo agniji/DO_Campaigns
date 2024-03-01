@@ -3,8 +3,9 @@ MMM Analysis
 
 ## Approach
 
-Clean the data by removing user_id, session_id and utm_content which has 4,700 missing values out of 5,000 rows. Time spent per session is calculated using session_start_ts and session_end_ts. Several attribution models are available like, Last Interaction, First Interaction, Time Decay, Linear, or Position Based. However, a decision to choose a particular model need to be made by clarifying the details with the marketing teams. 
-Monitoring the performance of the marketing efforts regularly and updating the attribution model is needed. Consumer behavior and market dynamics may change over time, so it's essential to adapt the strategies accordingly.
+Clean the data by removing user_id, session_id and utm_content which has 4,700 missing values out of 5,000 rows. Time spent per session (in minutes) is calculated using session_start_ts and session_end_ts. Several attribution models are available like, Last Interaction, First Interaction, Time Decay, Linear, or Position Based. However, a decision to choose a particular model need to be made by clarifying the details with the marketing teams. The way in which the interactions happen historically, need to be known. 
+
+Monitoring the performance of the marketing efforts regularly and updating the attribution model is needed. Consumer behavior and market dynamics may change over time, so it is essential to adapt the strategies accordingly.
 
 ## Analysis
 
@@ -22,8 +23,12 @@ We need to balance the complexity of the attribution model with the ease of impl
 
 ## Model Considerations
 
+The violin plots and histograms reveal a lot about the data and its underlying distribution. The data has several missing values & outliers. 
+
 I chose the LightGBM Classifier due to the following reasons:
-Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any apriory knowledge or sampling corrections, like over- or undersampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy varieables for specifically those variables: channel_id & utm_campaign
+Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any a priory knowledge or sampling corrections, like over- or under-sampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. Missing values & outliers can also be handled internally. 
+
+However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy varieables for specifically those variables: channel_id & utm_campaign. I have also removed rows missing values on features that we need to inquire.
 
 ## Metrics
 
@@ -31,9 +36,11 @@ I have chosen accuracy and Area Under the Curve (AUC) as two metrics. AUC is a m
 
 ## Conclusion
 
-The LightGBM Classifier does not provide good results so this need to be improved using more experiments with larger and higher quakity data and by discussing key results with the marketing team. The Feature Importances plot shows the created variable for Time Spent per session as the most important variable, followed by adwords_search, page, web_referral and others.
+The LightGBM Classifier does not provide good results so this need to be improved using more experiments with larger and higher quality data and by discussing key results with the marketing team. The Feature Importances plot shows the created variable for Time Spent per session as the most important variable, followed by adwords_search, page, web_referral and others.
 
-The Regressor for LightGBM was used to predict the time spent per session, which is in turn a proxy for website engagement. In lieu of lack ok more granular data, like how much time is spent on specific activities in a particular page, I have decided to use time spent per session for measuring engagement. This particualr model is doing a good job of predicting the time spent with top features as page, adwords_search, utm_source followed by others. 
+The Regressor for LightGBM was used to predict the time spent per session, which is in turn a proxy for website engagement. In lieu of lack of more granular data, like how much time is spent on specific activities in a particular page, I have decided to use time spent per session for measuring engagement. This particualr model is doing a good job of predicting the time spent with top features as page, adwords_search, utm_source followed by others. 
+
+Adwords_search turns up as the most important channel, followed by web_referral. 
 
 ## Future Work
 Budget is an important consideration for these campaigns, which is unkown. With more time in hand, other categorical variables can also be split into dummy variables to get a feature importance score attached to each category and necessary marketing steps can be taken accordingly. 
