@@ -26,7 +26,7 @@ We need to balance the complexity of the attribution model with the ease of impl
 The violin plots and histograms reveal a lot about the data and its underlying distribution. The data has several missing values & outliers. 
 
 I chose the LightGBM Classifier due to the following reasons:
-Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any a priory knowledge or sampling corrections, like over- or under-sampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. Missing values & outliers can also be handled internally. 
+Fairly sophisticated Gradient Boosting Model yet simple enough to implement. The data is imbalanced with only 108 TRUE values for the target. Hence a Gradient Bosting model might perform the best without any a priori knowledge or sampling corrections, like over- or under-sampling to correct for the imbalance. LightGBM can also internally handle categorical data without explicitly converting those to dummy variables. Missing values & outliers can also be handled internally. 
 
 However, the analysis requested to look into the various channels and campaigns about how these are affecting the target. Hence, I have explicitly created dummy variables for specifically those variables: channel_id & utm_campaign. I have also removed rows with missing values on features that we need to inquire.
 
